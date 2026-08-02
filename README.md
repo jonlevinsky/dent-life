@@ -60,6 +60,19 @@ Přes `data/config.json`. Při aktivaci se zobrazí custom zpráva.
 
 Shimmer loading, lazy loading, error fallback placeholder.
 
+## Screenshoty
+
+| | |
+|---|---|
+| **Hero** | **Služby** |
+| ![Hero](screenshots/dentlife-hero.png) | ![Služby](screenshots/dentlife-services.png) |
+| **O nás** | **Reference** |
+| ![O nás](screenshots/dentlife-about.png) | ![Reference](screenshots/dentlife-references.png) |
+| **Pobočky** | **Kontakt** |
+| ![Pobočky](screenshots/dentlife-locations.png) | ![Kontakt](screenshots/dentlife-contact.png) |
+| **Mobil** | **Celá stránka** |
+| ![Mobil](screenshots/dentlife-mobile.png) | ![Celá stránka](screenshots/dentlife-full.png) |
+
 ## Editor vybavení (`equipment_manager.py`)
 
 Tkinter GUI pro správu `dentlife_data.json`:
