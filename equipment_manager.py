@@ -402,26 +402,22 @@ class DentLifeManager(tk.Tk):
         new_section = generate_equipment_html(self.equipment)
 
         # Najdeme sekci vybaveni a nahradime ji
-        # Hledame: <!-- Equipment Section --> az <!-- Contact Section -->
-        pattern = r'(<!--\s*Equipment Section\s*-->)(.*?)(<!--\s*Contact Section\s*-->)'
-        match = re.search(pattern, html, re.DOTALL | re.IGNORECASE)
-
-        if match:
-            # Zachovame header sekce
-            old_content = match.group(0)
-            # Vytvorime novou sekci se zachovanim headeru
-            header_part = match.group(1)
-            footer_part = match.group(3)
-            new_html = header_part + "\n" + new_section + "\n\n  " + footer_part
+        # Zkusime najit podle id="vybaveni"
+        pattern2 = r'(<section[^>]*id=["\']vybaveni["\'][^>]*>)(.*?)(</section>)'
+        match2 = re.search(pattern2, html, re.DOTALL | re.IGNORECASE)
+        if match2:
+            old_content = match2.group(0)
+            new_html = match2.group(1) + "\n    <div class=\"container\">\n      <div class=\"section-header\">\n        <span class=\"section-badge\">Vybavení</span>\n        <h2 class=\"section-title\">Špičkové <strong>technologie</strong></h2>\n        <p class=\"section-text\">Využíváme nejmodernější přístrojové vybavení pro dosažení maximální přesnosti a kvality vašich náhrad.</p>\n      </div>\n" + new_section + "\n    </div>\n  " + match2.group(3)
             html = html.replace(old_content, new_html)
         else:
-            # Zkusime najit podle id="vybaveni"
-            pattern2 = r'(<section[^>]*id=["\']vybaveni["\'][^>]*>)(.*?)(</section>)'
-            match2 = re.search(pattern2, html, re.DOTALL | re.IGNORECASE)
-            if match2:
-                old_content = match2.group(0)
-                # Zachovame opening tag
-                new_html = match2.group(1) + "\n    <div class=\"container\">\n      <div class=\"section-header\">\n        <span class=\"section-badge\">Vybaveni</span>\n        <h2 class=\"section-title\">Technologie <strong>nasi laboratore</strong></h2>\n        <p class=\"section-text\">Pouzivame spickove pristroje pro maximalni presnost a kvalitu</p>\n      </div>\n" + new_section + "\n    </div>\n  " + match2.group(3)
+            # Fallback na komentare: <!-- Equipment Section --> az <!-- Contact Section -->
+            pattern = r'(<!--\s*Equipment Section\s*-->)(.*?)(<!--\s*Contact Section\s*-->)'
+            match = re.search(pattern, html, re.DOTALL | re.IGNORECASE)
+            if match:
+                old_content = match.group(0)
+                header_part = match.group(1)
+                footer_part = match.group(3)
+                new_html = header_part + "\n  <section class=\"equipment-section\" id=\"vybaveni\">\n    <div class=\"container\">\n      <div class=\"section-header\">\n        <span class=\"section-badge\">Vybavení</span>\n        <h2 class=\"section-title\">Špičkové <strong>technologie</strong></h2>\n        <p class=\"section-text\">Využíváme nejmodernější přístrojové vybavení pro dosažení maximální přesnosti a kvality vašich náhrad.</p>\n      </div>\n" + new_section + "\n    </div>\n  </section>\n  " + footer_part
                 html = html.replace(old_content, new_html)
             else:
                 if not silent:
@@ -456,23 +452,22 @@ class DentLifeManager(tk.Tk):
         new_section = generate_reference_html(self.references)
 
         # Najdeme sekci reference
-        # Hledame: <!-- Reference - obrazky --> az <!-- Locations Section -->
-        pattern = r'(<!--\s*Reference.*?-->)(.*?)(<!--\s*Locations Section\s*-->)'
-        match = re.search(pattern, html, re.DOTALL | re.IGNORECASE)
-
-        if match:
-            old_content = match.group(0)
-            header_part = match.group(1)
-            footer_part = match.group(3)
-            new_html = header_part + "\n" + new_section + "\n      </div>\n    </div>\n  " + footer_part
+        # Zkusime podle id="reference"
+        pattern2 = r'(<section[^>]*id=["\']reference["\'][^>]*>)(.*?)(</section>)'
+        match2 = re.search(pattern2, html, re.DOTALL | re.IGNORECASE)
+        if match2:
+            old_content = match2.group(0)
+            new_html = match2.group(1) + "\n    <div class=\"container\">\n      <div class=\"section-header\">\n        <span class=\"section-badge\">Reference</span>\n        <h2 class=\"section-title\">Ukázky naší <strong>práce</strong></h2>\n        <p class=\"section-text\">Precizní zpracování a nekompromisní kvalita v každém detailu.</p>\n      </div>\n      <div class=\"portfolio-grid\">\n" + new_section + "\n      </div>\n    </div>\n  " + match2.group(3)
             html = html.replace(old_content, new_html)
         else:
-            # Zkusime podle id="reference"
-            pattern2 = r'(<section[^>]*id=["\']reference["\'][^>]*>)(.*?)(</section>)'
-            match2 = re.search(pattern2, html, re.DOTALL | re.IGNORECASE)
-            if match2:
-                old_content = match2.group(0)
-                new_html = match2.group(1) + "\n    <div class=\"container\">\n      <div class=\"section-header\">\n        <span class=\"section-badge\">Reference</span>\n        <h2 class=\"section-title\">Ukazky nasej <strong>prace</strong></h2>\n        <p class=\"section-text\">Precizni zpracovani a kvalita v kazdem detailu</p>\n      </div>\n      <div class=\"portfolio-grid\">\n" + new_section + "\n      </div>\n    </div>\n  " + match2.group(3)
+            # Fallback na komentare: <!-- Reference - obrazky --> az <!-- Locations Section -->
+            pattern = r'(<!--\s*Reference.*?-->)(.*?)(<!--\s*Locations Section\s*-->)'
+            match = re.search(pattern, html, re.DOTALL | re.IGNORECASE)
+            if match:
+                old_content = match.group(0)
+                header_part = match.group(1)
+                footer_part = match.group(3)
+                new_html = header_part + "\n  <section class=\"portfolio\" id=\"reference\">\n    <div class=\"container\">\n      <div class=\"section-header\">\n        <span class=\"section-badge\">Reference</span>\n        <h2 class=\"section-title\">Ukázky naší <strong>práce</strong></h2>\n        <p class=\"section-text\">Precizní zpracování a nekompromisní kvalita v každém detailu.</p>\n      </div>\n      <div class=\"portfolio-grid\">\n" + new_section + "\n      </div>\n    </div>\n  </section>\n  " + footer_part
                 html = html.replace(old_content, new_html)
             else:
                 if not silent:

@@ -2476,6 +2476,478 @@
       outline-offset: 2px;
     }
 
+    /* Floating Q&A Assistant Widget */
+    .assistant-widget {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 999;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .assistant-launcher {
+      width: 3.5rem;
+      height: 3.5rem;
+      background-color: var(--accent);
+      color: #ffffff;
+      border: none;
+      border-radius: 50%;
+      box-shadow: 0 4px 16px rgba(202, 72, 72, 0.4);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .assistant-launcher:hover {
+      background-color: var(--accent-hover);
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(202, 72, 72, 0.5);
+    }
+
+    .assistant-launcher:active {
+      transform: scale(0.95);
+    }
+
+    .assistant-launcher svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 0.2s ease;
+    }
+
+    .assistant-launcher.active svg {
+      transform: rotate(90deg);
+    }
+
+    .assistant-box {
+      position: absolute;
+      bottom: 4.5rem;
+      right: 0;
+      width: 340px;
+      max-width: 90vw;
+      height: 480px;
+      max-height: 80vh;
+      background-color: var(--background);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-xl);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      transform-origin: bottom right;
+      animation: assistant-bounce-in 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .assistant-box.open {
+      display: flex;
+    }
+
+    @keyframes assistant-bounce-in {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.85);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .assistant-header {
+      background-color: var(--card);
+      padding: 1.25rem 1rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .assistant-header-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .assistant-avatar-wrapper {
+      position: relative;
+    }
+
+    .assistant-avatar {
+      width: 2.25rem;
+      height: 2.25rem;
+      background-color: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+    }
+
+    .assistant-avatar svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .assistant-status-dot {
+      position: absolute;
+      bottom: -1px;
+      right: -1px;
+      width: 0.65rem;
+      height: 0.65rem;
+      background-color: #22c55e;
+      border: 2px solid var(--card);
+      border-radius: 50%;
+    }
+
+    .assistant-status-dot::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border-radius: 50%;
+      border: 2px solid #22c55e;
+      animation: status-pulse 2s infinite;
+      opacity: 0;
+    }
+
+    @keyframes status-pulse {
+      0% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(2.3);
+        opacity: 0;
+      }
+    }
+
+    .assistant-title-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .assistant-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--foreground);
+      line-height: 1.2;
+    }
+
+    .assistant-subtitle {
+      font-size: 0.75rem;
+      color: var(--muted-foreground);
+    }
+
+    .assistant-header-actions {
+      display: flex;
+      align-items: center;
+    }
+
+    .assistant-reset {
+      background: none;
+      border: none;
+      color: var(--muted-foreground);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+      margin-right: 0.25rem;
+    }
+
+    .assistant-reset:hover {
+      background-color: var(--muted);
+      color: var(--foreground);
+      transform: rotate(-60deg);
+    }
+
+    .assistant-reset svg {
+      width: 1.1rem;
+      height: 1.1rem;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .assistant-close {
+      background: none;
+      border: none;
+      color: var(--muted-foreground);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .assistant-close:hover {
+      background-color: var(--muted);
+      color: var(--foreground);
+    }
+
+    .assistant-close svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .assistant-chat {
+      flex: 1;
+      padding: 1.25rem 1rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      background-color: var(--background);
+      scroll-behavior: smooth;
+    }
+
+    /* Custom scrollbar for chat panel */
+    .assistant-chat::-webkit-scrollbar {
+      width: 6px;
+    }
+    .assistant-chat::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .assistant-chat::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 3px;
+    }
+    .assistant-chat::-webkit-scrollbar-thumb:hover {
+      background: var(--muted-foreground);
+    }
+
+    .assistant-m-row {
+      display: flex;
+      gap: 0.5rem;
+      max-width: 85%;
+      opacity: 0;
+      transform: translateY(8px);
+      animation: assistant-message-in 0.28s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+    }
+
+    @keyframes assistant-message-in {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .assistant-m-row.bot {
+      align-self: flex-start;
+    }
+
+    .assistant-m-row.user {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+
+    .assistant-icon-tiny {
+      width: 1.75rem;
+      height: 1.75rem;
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .assistant-icon-tiny svg {
+      width: 1rem;
+      height: 1rem;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .assistant-bubble {
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      line-height: 1.45;
+    }
+
+    .assistant-m-row.bot .assistant-bubble {
+      background-color: var(--card);
+      color: var(--foreground);
+      border-radius: 0 12px 12px 12px;
+      border: 1px solid var(--border);
+    }
+
+    .assistant-m-row.user .assistant-bubble {
+      background-color: var(--accent);
+      color: #ffffff;
+      border-radius: 12px 0 12px 12px;
+    }
+
+    .assistant-bubble p {
+      margin-bottom: 0.5rem;
+    }
+    .assistant-bubble p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Typing indicator animation */
+    .typing-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      height: 12px;
+      padding: 0 4px;
+    }
+    .typing-indicator span {
+      width: 5px;
+      height: 5px;
+      background-color: var(--muted-foreground);
+      border-radius: 50%;
+      animation: typing-bounce 1.4s infinite ease-in-out both;
+    }
+    .typing-indicator span:nth-child(1) {
+      animation-delay: -0.32s;
+    }
+    .typing-indicator span:nth-child(2) {
+      animation-delay: -0.16s;
+    }
+    @keyframes typing-bounce {
+      0%, 80%, 100% { 
+        transform: scale(0);
+      } 
+      40% { 
+        transform: scale(1.0);
+      }
+    }
+
+    .assistant-footer {
+      padding: 1rem;
+      border-top: 1px solid var(--border);
+      background-color: var(--card);
+    }
+
+    .assistant-options-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .assistant-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .assistant-opt-btn {
+      background-color: var(--background);
+      border: 1px solid var(--border);
+      color: var(--foreground);
+      padding: 0.65rem 0.85rem;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 0.825rem;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .assistant-opt-btn:hover {
+      background-color: var(--muted);
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .assistant-opt-btn svg {
+      width: 0.875rem;
+      height: 0.875rem;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      fill: none;
+      flex-shrink: 0;
+    }
+
+    .assistant-back-btn {
+      background-color: transparent;
+      border: none;
+      color: var(--accent);
+      font-size: 0.825rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-weight: 600;
+      padding: 0.5rem 0;
+      transition: color 0.2s ease;
+    }
+
+    .assistant-back-btn:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+
+    .assistant-back-btn svg {
+      width: 0.875rem;
+      height: 0.875rem;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      fill: none;
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 480px) {
+      .assistant-widget {
+        bottom: 1rem;
+        right: 1rem;
+      }
+      .assistant-box {
+        bottom: 4rem;
+        right: 0;
+        width: calc(100vw - 2rem);
+        height: 420px;
+      }
+    }
+
+    /* Prefers reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .assistant-launcher,
+      .assistant-box,
+      .assistant-opt-btn {
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+      }
+    }
+
   </style>
 
   <!-- Schema.org Structured Data -->
@@ -2678,8 +3150,8 @@
   "name": "Dent&Life - Moderní dentální laboratoř",
   "description": "Prezentace moderní dentální laboratoře Dent&Life s důrazem na preciznost a estetiku v každém detailu.",
   "thumbnailUrl": "https://laborator-dentlife.cz/files/res/video/hero.png",
-  "contentUrl": "https://levinskyj.art/dent%26life/files/res/video/hero.mp4",
-  "embedUrl": "https://levinskyj.art/dent%26life/files/res/video/hero.mp4",
+  "contentUrl": "https://jonlevinsky.github.io/dent-life/files/res/video/hero.mp4",
+  "embedUrl": "https://jonlevinsky.github.io/dent-life/files/res/video/hero.mp4",
   "uploadDate": "2026-01-01",
   "duration": "PT30S",
   "publisher": {
@@ -2756,7 +3228,7 @@
   <!-- Hero Section -->
   <section class="hero" id="hero">
     <video class="hero-video" autoplay loop muted playsinline fetchpriority="high" id="hero-video" poster="files/res/video/hero.png">
-      <source src="https://levinskyj.art/dent%26life/files/res/video/hero.mp4" type="video/mp4" id="desktop-video">
+      <source src="https://jonlevinsky.github.io/dent-life/files/res/video/hero.mp4" type="video/mp4" id="desktop-video">
     </video>
 
     <div class="hero-overlay"></div>
@@ -2876,95 +3348,82 @@
         <p class="section-text">Precizní zpracování a nekompromisní kvalita v každém detailu.</p>
       </div>
       <div class="portfolio-grid">
-<!------------------------------------------->
-        <div class="portfolio-item" data-gallery="0" role="button" tabindex="0" aria-label="Zobrazit detail: Metalokeramické korunky">
+        <div class="portfolio-item" data-gallery="0" role="button" tabindex="0" aria-label="Zobrazit detail: Metalokeramicke korunky">
           <div class="portfolio-image">
-            <img src="files/res/reference/ref-01.jpg" loading="lazy" decoding="async" alt="Metalokeramické korunky">
+            <img src="files/res/reference/ref-01.jpg" loading="lazy" decoding="async" alt="Metalokeramicke korunky">
           </div>
           <div class="portfolio-overlay"></div>
           <div class="portfolio-content">
             <div class="portfolio-info">
               <div>
-                <h3></h3>
-                <p></p>
+                <h3>Metalokeramicke korunky</h3>
+                <p>Precizni zpracovani s perfektnim barevnym prechodem</p>
               </div>
               <div class="portfolio-arrow">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                  stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                 </svg>
               </div>
             </div>
           </div>
         </div>
-<!------------------------------------------->
-        <div class="portfolio-item" data-gallery="1" role="button" tabindex="0" aria-label="Zobrazit detail: Celokeramické můstky">
+        <div class="portfolio-item" data-gallery="1" role="button" tabindex="0" aria-label="Zobrazit detail: Celokeramicke mustky">
           <div class="portfolio-image">
-            <img src="files/res/reference/ref-02.jpg" loading="lazy" decoding="async" alt="Celokeramické můstky">
+            <img src="files/res/reference/ref-02.jpg" loading="lazy" decoding="async" alt="Celokeramicke mustky">
           </div>
           <div class="portfolio-overlay"></div>
           <div class="portfolio-content">
             <div class="portfolio-info">
               <div>
-                <h3></h3>
-                <p></p>
+                <h3>Celokeramicke mustky</h3>
+                <p>Esteticke reseni s maximalni prirozenosti</p>
               </div>
               <div class="portfolio-arrow">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                  stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                 </svg>
               </div>
             </div>
           </div>
         </div>
-<!------------------------------------------->
-        <div class="portfolio-item" data-gallery="2" role="button" tabindex="0" aria-label="Zobrazit detail: Implantátové práce">
+        <div class="portfolio-item" data-gallery="2" role="button" tabindex="0" aria-label="Zobrazit detail: Implantatove prace">
           <div class="portfolio-image">
-            <img src="files/res/reference/ref-03.jpg" loading="lazy" decoding="async" alt="Implantátové práce">
+            <img src="files/res/reference/ref-03.jpg" loading="lazy" decoding="async" alt="Implantatove prace">
           </div>
           <div class="portfolio-overlay"></div>
           <div class="portfolio-content">
             <div class="portfolio-info">
               <div>
-                <h3></h3>
-                <p></p>
+                <h3>Implantatove prace</h3>
+                <p>Moderni technologie pro dlouhodoba reseni</p>
               </div>
               <div class="portfolio-arrow">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                  stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                 </svg>
               </div>
             </div>
           </div>
         </div>
-<!------------------------------------------->
-        <div class="portfolio-item" data-gallery="3" role="button" tabindex="0" aria-label="Zobrazit detail: Snímatelné protézy">
+        <div class="portfolio-item" data-gallery="3" role="button" tabindex="0" aria-label="Zobrazit detail: Snimatelne protezy">
           <div class="portfolio-image">
-            <img src="files/res/reference/ref-04.jpg" loading="lazy" decoding="async" alt="Snímatelné protézy">
+            <img src="files/res/reference/ref-04.jpg" loading="lazy" decoding="async" alt="Snimatelne protezy">
           </div>
           <div class="portfolio-overlay"></div>
           <div class="portfolio-content">
             <div class="portfolio-info">
               <div>
-                <h3></h3>
-                <p></p>
+                <h3>Snimatelne protezy</h3>
+                <p>Komfortni a esteticky zpracovane nahrad</p>
               </div>
               <div class="portfolio-arrow">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                  stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                 </svg>
               </div>
             </div>
           </div>
         </div>
-<!------------------------------------------->
       </div>
     </div>
   </section>
@@ -3029,99 +3488,99 @@
         <h2 class="section-title">Špičkové <strong>technologie</strong></h2>
         <p class="section-text">Využíváme nejmodernější přístrojové vybavení pro dosažení maximální přesnosti a kvality vašich náhrad.</p>
       </div>
-      <!-- Step 1: Scan -->
-      <div class="equipment-grid">
-        <div class="equipment-image-wrapper">
-          <div class="equipment-image">
-            <img src="" loading="lazy" decoding="async" alt="3D skener">
+      <div class="about-grid equipment-grid-custom" style="margin-top: 0;">
+        <div class="about-image-wrapper">
+          <div class="about-image" style="aspect-ratio: 4/3;">
+            <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&h=600&fit=crop&q=80" loading="lazy" decoding="async" alt="CAD/CAM system">
           </div>
-          <div class="equipment-badge">
-            <div class="equipment-badge-number">01</div>
-            <div class="equipment-badge-text">Skenování</div>
+          <div class="about-badge">
+            <div class="about-badge-number">01</div>
+            <div class="about-badge-text">CAD/CAM</div>
           </div>
         </div>
-        <div class="equipment-content">
-          <span class="section-badge">Digitalizace</span>
-          <h2 class="section-title">3D <strong>skener</strong></h2>
-          <p class="text-shimmer medium"></p>
-          <p class="text-shimmer short"></p>
-          <div class="equipment-brands">
-            <p class="equipment-brands-title">Klíčové vlastnosti</p>
+        <div class="about-content">
+          <span class="section-badge">Precizni vyroba</span>
+          <h2 class="section-title">CAD/CAM system</h2>
+          <p>Digitalizace a presna vyroba pomoci nejmodernejsiho softwaru pro navrh a frezovani zubnich nahrad. Digitalni workflow zajistuje maximalni presnost a opakovatelnost vysledku.</p>
+          <div class="about-brands">
+            <p class="about-brands-title">Klíčové vlastnosti</p>
             <div class="brands-list">
-              <span class="brand-tag, text-shimmer short"></span>
+              <span class="brand-tag">5-ose frezovani</span>
+              <span class="brand-tag">Wet & Dry</span>
+              <span class="brand-tag">Exocad</span>
             </div>
           </div>
         </div>
       </div>
-      <!-- Step 2: CAD/CAM -->
-      <div class="equipment-grid reversed">
-        <div class="equipment-image-wrapper">
-          <div class="equipment-image">
-            <img src="" loading="lazy" decoding="async" alt="CAD/CAM systém">
-          </div>
-          <div class="equipment-badge">
-            <div class="equipment-badge-number">02</div>
-            <div class="equipment-badge-text">CAD/CAM</div>
-          </div>
-        </div>
-        <div class="equipment-content">
-          <span class="section-badge">Precizní výroba</span>
-          <h2 class="section-title">CAD/CAM <strong>systém</strong></h2>
-          <p class="text-shimmer medium"></p>
-          <p class="text-shimmer short"></p>
-          <div class="equipment-brands">
-            <p class="equipment-brands-title">Klíčové vlastnosti</p>
+      <div class="about-grid equipment-grid-custom" style="margin-top: 0;">
+        <div class="about-content">
+          <span class="section-badge">Vypalovani</span>
+          <h2 class="section-title">Keramicka pec</h2>
+          <p>Vakuumova pec pro vypalovani celokeramiky s programovatelnymi teplotnimi krivkami a vakuovym cerpadlem. Zajistuje dokonalou estetiku a pevnost kazde restaurovane nahrad.</p>
+          <div class="about-brands">
+            <p class="about-brands-title">Klíčové vlastnosti</p>
             <div class="brands-list">
-              <span class="brand-tag, text-shimmer short"></span>
+              <span class="brand-tag">Programovatelne krivky</span>
+              <span class="brand-tag">Vakuove cerpadlo</span>
+              <span class="brand-tag">Ivoclar</span>
             </div>
           </div>
         </div>
-      </div>
-      <!-- Step 3: Firing -->
-      <div class="equipment-grid">
-        <div class="equipment-image-wrapper">
-          <div class="equipment-image">
-            <img src="" loading="lazy" decoding="async" alt="Keramická pec">
+        <div class="about-image-wrapper">
+          <div class="about-image" style="aspect-ratio: 4/3;">
+            <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?w=800&h=600&fit=crop&q=80" loading="lazy" decoding="async" alt="Keramicka pec">
           </div>
-          <div class="equipment-badge">
-            <div class="equipment-badge-number">03</div>
-            <div class="equipment-badge-text">Keramika</div>
-          </div>
-        </div>
-        <div class="equipment-content">
-          <span class="section-badge">Vypalování</span>
-          <h2 class="section-title">Keramická <strong>pec</strong></h2>
-          <p class="text-shimmer medium"></p>
-          <p class="text-shimmer short"></p>
-          <div class="equipment-brands">
-            <p class="equipment-brands-title">Klíčové vlastnosti</p>
-            <div class="brands-list">
-              <span class="brand-tag, text-shimmer short"></span>
-            </div>
+          <div class="about-badge">
+            <div class="about-badge-number">02</div>
+            <div class="about-badge-text">Keramika</div>
           </div>
         </div>
       </div>
-      <!-- Step 4: Control -->
-      <div class="equipment-grid reversed">
-        <div class="equipment-image-wrapper">
-          <div class="equipment-image">
-            <img src="" loading="lazy" decoding="async" alt="Stereomikroskop">
+      <div class="about-grid equipment-grid-custom" style="margin-top: 0;">
+        <div class="about-image-wrapper">
+          <div class="about-image" style="aspect-ratio: 4/3;">
+            <img src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=800&h=600&fit=crop&q=80" loading="lazy" decoding="async" alt="Stereomikroskop">
           </div>
-          <div class="equipment-badge">
-            <div class="equipment-badge-number">04</div>
-            <div class="equipment-badge-text">Kontrola</div>
+          <div class="about-badge">
+            <div class="about-badge-number">03</div>
+            <div class="about-badge-text">Kontrola</div>
           </div>
         </div>
-        <div class="equipment-content">
-          <span class="section-badge">Detailní kontrola</span>
+        <div class="about-content">
+          <span class="section-badge">Detailni kontrola</span>
           <h2 class="section-title">Stereomikroskop</h2>
-          <p class="text-shimmer medium"></p>
-          <p class="text-shimmer short"></p>
-          <div class="equipment-brands">
-            <p class="equipment-brands-title">Klíčové vlastnosti</p>
+          <p>Zvetseni az 40x pro detailni kontrolu povrchu, okrajovych presahu a estetickeho zpracovani. Kazda prace prochazi dkladnou mikroskopickou kontrolou kvality.</p>
+          <div class="about-brands">
+            <p class="about-brands-title">Klíčové vlastnosti</p>
             <div class="brands-list">
-              <span class="brand-tag, text-shimmer short"></span>
+              <span class="brand-tag">40x zvetseni</span>
+              <span class="brand-tag">LED osvetleni</span>
+              <span class="brand-tag">Kamera</span>
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-grid equipment-grid-custom" style="margin-top: 0;">
+        <div class="about-content">
+          <span class="section-badge">Digitalizace</span>
+          <h2 class="section-title">3D skener</h2>
+          <p>Bezdotykove skenovani modelu s rozlisenim 5 um pro maximalni presnost digitalniho otisku. Rychle a presne zachyceni geometrie pro naslednou digitalni vyrobu.</p>
+          <div class="about-brands">
+            <p class="about-brands-title">Klíčové vlastnosti</p>
+            <div class="brands-list">
+              <span class="brand-tag">5 um rozliseni</span>
+              <span class="brand-tag">Modely i otisky</span>
+              <span class="brand-tag">AutoScan</span>
+            </div>
+          </div>
+        </div>
+        <div class="about-image-wrapper">
+          <div class="about-image" style="aspect-ratio: 4/3;">
+            <img src="https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?w=800&h=600&fit=crop&q=80" loading="lazy" decoding="async" alt="3D skener">
+          </div>
+          <div class="about-badge">
+            <div class="about-badge-number">04</div>
+            <div class="about-badge-text">Skenovani</div>
           </div>
         </div>
       </div>
@@ -3459,12 +3918,15 @@
     mapClose.addEventListener('click', closeMapModal);
     mapOverlay.addEventListener('click', closeMapModal);
     // ==================== GALLERY MODAL ====================
-    const galleryItems = [
-      { src: 'files/res/reference/ref-01.jpg' },
-      { src: 'files/res/reference/ref-02.jpg' },
-      { src: 'files/res/reference/ref-03.jpg' },
-      { src: 'files/res/reference/ref-04.jpg' }
-    ];
+    let galleryItems = [];
+    function initGalleryItems() {
+      galleryItems = Array.from(document.querySelectorAll('.portfolio-item')).map(item => {
+        const img = item.querySelector('.portfolio-image img');
+        return { src: img ? img.getAttribute('src') : '' };
+      });
+    }
+    initGalleryItems();
+
     let currentGalleryIndex = 0;
     const galleryOverlay = document.getElementById('gallery-overlay');
     const galleryModal = document.getElementById('gallery-modal');
@@ -3475,6 +3937,7 @@
     const galleryMain = document.getElementById('gallery-main');
 
     function updateGallery(index) {
+      if (galleryItems.length === 0) return;
       currentGalleryIndex = index;
       galleryImage.classList.add('switching');
       setTimeout(() => {
@@ -3484,6 +3947,7 @@
     }
 
     function openGalleryModal(index) {
+      if (galleryItems.length === 0) return;
       currentGalleryIndex = index;
       galleryImage.src = galleryItems[index].src;
       galleryOverlay.classList.add('active');
@@ -3497,8 +3961,8 @@
       document.body.style.overflow = '';
     }
 
-    document.querySelectorAll('.portfolio-item').forEach(item => {
-      item.addEventListener('click', () => openGalleryModal(parseInt(item.dataset.gallery)));
+    document.querySelectorAll('.portfolio-item').forEach((item, index) => {
+      item.addEventListener('click', () => openGalleryModal(index));
     });
 
     galleryClose.addEventListener('click', closeGalleryModal);
@@ -3535,10 +3999,10 @@
       const isMobile = window.innerWidth <= 767;
 
       if (isMobile) {
-        video.src = 'https://levinskyj.art/dent%26life/files/res/video/hero.mobile.mp4';
+        video.src = 'https://jonlevinsky.github.io/dent-life/files/res/video/hero-mobile.mp4';
         video.setAttribute('poster', 'files/res/video/hero-mobile.png');
       } else {
-        video.src = 'https://levinskyj.art/dent%26life//files/res/video/hero.mp4';
+        video.src = 'https://jonlevinsky.github.io/dent-life/files/res/video/hero.mp4';
         video.setAttribute('poster', 'files/res/video/hero.png');
       }
       video.load();
@@ -3751,5 +4215,323 @@
     })();
 
     </script>
+
+  <!-- Floating Q&A Assistant Widget -->
+  <div class="assistant-widget" id="assistant-widget">
+    <button class="assistant-launcher" id="assistant-launcher" aria-label="Otevřít asistenta Dent&Life" aria-haspopup="true" aria-expanded="false">
+      <!-- Chat icon (two message bubbles) -->
+      <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+      <!-- Close/cross icon -->
+      <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display: none;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+
+    <div class="assistant-box" id="assistant-box">
+      <!-- Header -->
+      <div class="assistant-header">
+        <div class="assistant-header-info">
+          <div class="assistant-avatar-wrapper">
+            <div class="assistant-avatar">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            </div>
+            <div class="assistant-status-dot"></div>
+          </div>
+          <div class="assistant-title-wrapper">
+            <span class="assistant-title">Asistent Dent&Life</span>
+            <span class="assistant-subtitle">Rychlá nápověda pro vás</span>
+          </div>
+        </div>
+        <div class="assistant-header-actions">
+          <button class="assistant-reset" id="assistant-reset" aria-label="Restartovat konverzaci" title="Restartovat konverzaci">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><polyline points="3 3 3 8 8 8"/></svg>
+          </button>
+          <button class="assistant-close" id="assistant-close" aria-label="Zavřít asistenta">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Chat area -->
+      <div class="assistant-chat" id="assistant-chat">
+        <!-- Messages will be generated here -->
+      </div>
+
+      <!-- Options / Footer -->
+      <div class="assistant-footer">
+        <div class="assistant-options-title" id="assistant-options-title">Vyberte dotaz:</div>
+        <div class="assistant-options" id="assistant-options">
+          <!-- Dynamic options buttons will be generated here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Assistant JavaScript -->
+  <script>
+    (function() {
+      const launcher = document.getElementById('assistant-launcher');
+      const box = document.getElementById('assistant-box');
+      const closeBtn = document.getElementById('assistant-close');
+      const chatArea = document.getElementById('assistant-chat');
+      const optionsArea = document.getElementById('assistant-options');
+      const optionsTitle = document.getElementById('assistant-options-title');
+      const iconOpen = document.getElementById('icon-open');
+      const iconClose = document.getElementById('icon-close');
+
+      const dialogTree = {
+        start: {
+          text: 'Dobrý den! Jsem rychlý asistent Dent&Life. Jaké informace o naší dentální laboratoři vás zajímají?',
+          options: [
+            { label: 'Kde vás najdu? (Adresy a pobočky)', next: 'locations' },
+            { label: 'Jaké služby nabízíte?', next: 'services' },
+            { label: 'Jak vás mohu kontaktovat?', next: 'contact' },
+            { label: 'Spolupráce (lékaři / pacienti)', next: 'cooperation' }
+          ]
+        },
+        locations: {
+          text: '<p>Máme dvě moderně vybavené pobočky pro pohodlné předání prací i konzultaci:</p>' +
+                '<p>• <strong>Praha:</strong> Poliklinika Litochleby, Hviezdoslavova 1600/6</p>' +
+                '<p>• <strong>Benešov:</strong> Máchova 2328</p>' +
+                '<p>Co konkrétně o pobočkách vás zajímá?</p>',
+          options: [
+            { label: 'Hledám navigaci / trasu v mapě', next: 'locations_map' },
+            { label: 'Jak se objednat na konzultaci?', next: 'locations_appointment' },
+            { label: 'Zpět na začátek', next: 'start' }
+          ]
+        },
+        locations_map: {
+          text: '<p>Interaktivní mapy obou poboček najdete níže na této stránce v sekci Pobočky. Můžete kliknout na tlačítko "Navigovat" u vybraného města.</p>' +
+                '<p>Přímé odkazy na navigaci na Google Maps:</p>' +
+                '<p>• <a href="https://www.google.com/maps/dir//Hviezdoslavova+1600/6,+149+00+Praha" target="_blank" style="color:var(--accent);text-decoration:underline;">Navigovat do Prahy</a></p>' +
+                '<p>• <a href="https://www.google.com/maps/dir//Máchova+2328,+256+01+Benešov" target="_blank" style="color:var(--accent);text-decoration:underline;">Navigovat do Benešova</a></p>',
+          options: [
+            { label: 'Jak se objednat?', next: 'locations_appointment' },
+            { label: 'Zpět na výběr pobočky', next: 'locations' },
+            { label: 'Zpět na začátek', next: 'start' }
+          ]
+        },
+        locations_appointment: {
+          text: '<p>Osobní konzultace a návštěvy s lékaři i pacienty organizujeme <strong>vždy po předchozí telefonické domluvě</strong>, abychom se vám mohli plně věnovat.</p>',
+          options: [
+            { label: 'Zobrazit telefonní kontakty', next: 'contact_phones' },
+            { label: 'Zpět na výběr pobočky', next: 'locations' },
+            { label: 'Zpět na začátek', next: 'start' }
+          ]
+        },
+        services: {
+          text: '<p>Specializujeme se na precizní protetické práce. Používáme moderní 5-osou CAD/CAM frézku a 3D skener pro přesnost na mikrony.</p>' +
+                '<p>O jaké typy zubních náhrad se zajímáte?</p>',
+          options: [
+            { label: 'Fixní protetika (korunky, můstky)', next: 'services_fixed' },
+            { label: 'Snímatelná protetika (protézy)', next: 'services_removable' },
+            { label: 'Implantátové práce', next: 'services_implants' },
+            { label: 'Zpět na začátek', next: 'start' }
+          ]
+        },
+        services_fixed: {
+          text: '<p>Zhotovujeme celokeramické korunky a můstky (zirkonoxid, presovaná keramika E.max) a vysoce estetickou metalokeramiku.</p>',
+          options: [
+            { label: 'Jaké materiály na to používáte?', next: 'services_materials' },
+            { label: 'Ostatní služby', next: 'services' },
+            { label: 'Zpět na začátek', next: 'start' }
+          ]
+        },
+        services_removable: {
+          text: '<p>Vyrábíme celkové i částečné snímatelné náhrady, hybridní náhrady a skeletové konstrukce pro maximální pohodlí pacienta.</p>',
+          options: [
+            { label: 'Ostatní služby', next: 'services' },
+            { label: 'Zpět na začátek', next: 'start' }
+          ]
+        },
+        services_implants: {
+          text: '<p>Provádíme protetická řešení na implantáty různých značek. Navrhujeme individuální abutmenty a šroubované korunky s důrazem na estetiku a funkci.</p>',
+          options: [
+            { label: 'Ostatní služby', next: 'services' },
+            { label: 'Zpět na začátek', next: 'start' }
+          ]
+        },
+        services_materials: {
+          text: '<p>Pracujeme výhradně s certifikovanými materiály od předních světových výrobců jako <strong>Ivoclar Vivadent</strong> a <strong>Amann Girrbach</strong>.</p>',
+          options: [
+            { label: 'Zpět na služby', next: 'services' },
+            { label: 'Zpět na začátek', next: 'start' }
+          ]
+        },
+        contact: {
+          text: '<p>Jsme vám k dispozici na e-mailu i telefonu v pracovní dny.</p>',
+          options: [
+            { label: 'Zobrazit telefonní kontakty', next: 'contact_phones' },
+            { label: 'Jaká je vaše provozní doba?', next: 'contact_hours' },
+            { label: 'Zpět na začátek', next: 'start' }
+          ]
+        },
+        contact_phones: {
+          text: '<p>Zavolejte nám na pobočku podle vaší preference:</p>' +
+                '<p>• Praha: <strong>+420 608 547 489</strong></p>' +
+                '<p>• Benešov: <strong>+420 723 159 128</strong></p>' +
+                '<p>E-mail: <strong>dentlife@email.cz</strong></p>',
+          options: [
+            { label: 'Jaká je provozní doba?', next: 'contact_hours' },
+            { label: 'Zpět na začátek', next: 'start' }
+          ]
+        },
+        contact_hours: {
+          text: '<p>Laboratoře fungují v pracovní dny. Osobní schůzky a konzultace organizujeme pouze po telefonické objednávce předem.</p>',
+          options: [
+            { label: 'Zobrazit telefonní kontakty', next: 'contact_phones' },
+            { label: 'Zpět na začátek', next: 'start' }
+          ]
+        },
+        cooperation: {
+          text: '<p>Zhotovujeme práce výhradně na zakázku. Jak s námi můžete začít spolupracovat?</p>',
+          options: [
+            { label: 'Jsem zubní lékař (hledám laboratoř)', next: 'coop_dentist' },
+            { label: 'Jsem pacient (chci vaši práci)', next: 'coop_patient' },
+            { label: 'Zpět na začátek', next: 'start' }
+          ]
+        },
+        coop_dentist: {
+          text: '<p>Těší nás váš zájem! Spolupracujeme s řadou ordinací. Kontaktujte nás a my k vám rádi přijedeme, představíme naše práce a ceník a dohodneme svoz otisků/zakázek.</p>',
+          options: [
+            { label: 'Zobrazit kontakty pro lékaře', next: 'contact_phones' },
+            { label: 'Zpět na začátek', next: 'start' }
+          ]
+        },
+        coop_patient: {
+          text: '<p>Jako dentální laboratoř spolupracujeme přímo se zubaři. Pokud se vám líbí naše práce, poproste svého ošetřujícího zubního lékaře, aby s námi navázal kontakt. Rádi pro vás na jeho doporučení zhotovíme jakoukoli náhradu.</p>',
+          options: [
+            { label: 'Zpět na kontakt', next: 'contact' },
+            { label: 'Zpět na začátek', next: 'start' }
+          ]
+        }
+      };
+
+      let isOpen = false;
+      let currentState = 'start';
+
+      // Toggle Assistant Box
+      function toggleAssistant(forceState) {
+        isOpen = typeof forceState === 'boolean' ? forceState : !isOpen;
+        if (isOpen) {
+          box.classList.add('open');
+          launcher.classList.add('active');
+          iconOpen.style.display = 'none';
+          iconClose.style.display = 'block';
+          launcher.setAttribute('aria-expanded', 'true');
+          
+          // Initialize with starting state if empty
+          if (chatArea.children.length === 0) {
+            goToState('start', true);
+          }
+        } else {
+          box.classList.remove('open');
+          launcher.classList.remove('active');
+          iconOpen.style.display = 'block';
+          iconClose.style.display = 'none';
+          launcher.setAttribute('aria-expanded', 'false');
+        }
+      }
+
+      launcher.addEventListener('click', () => toggleAssistant());
+      closeBtn.addEventListener('click', () => toggleAssistant(false));
+
+      // Reset button click - restart conversation
+      const resetBtn = document.getElementById('assistant-reset');
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          chatArea.innerHTML = '';
+          goToState('start', true);
+        });
+      }
+
+      // Escape key closes the widget
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isOpen) {
+          toggleAssistant(false);
+          launcher.focus();
+        }
+      });
+
+      function appendMessage(sender, text) {
+        const row = document.createElement('div');
+        row.className = `assistant-m-row ${sender}`;
+        
+        let avatarHTML = '';
+        if (sender === 'bot') {
+          avatarHTML = `
+            <div class="assistant-icon-tiny">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            </div>
+          `;
+        }
+        
+        row.innerHTML = `
+          ${avatarHTML}
+          <div class="assistant-bubble">
+            ${text}
+          </div>
+        `;
+        
+        chatArea.appendChild(row);
+        chatArea.scrollTop = chatArea.scrollHeight;
+      }
+
+      function goToState(stateKey, isInitial = false) {
+        currentState = stateKey;
+        const node = dialogTree[stateKey];
+        if (!node) return;
+
+        // Clear & hide options menu during transitions
+        optionsArea.innerHTML = '';
+        optionsTitle.textContent = 'Asistent píše...';
+
+        if (isInitial) {
+          appendMessage('bot', node.text);
+          renderOptions(node.options);
+        } else {
+          // Show typing indicator bubble
+          const typingRow = document.createElement('div');
+          typingRow.className = 'assistant-m-row bot typing-temp';
+          typingRow.innerHTML = `
+            <div class="assistant-icon-tiny">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            </div>
+            <div class="assistant-bubble" style="padding: 0.65rem 0.9rem; display: flex; align-items: center;">
+              <div class="typing-indicator">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+          `;
+          chatArea.appendChild(typingRow);
+          chatArea.scrollTop = chatArea.scrollHeight;
+
+          // Simulate short typing delay for realism
+          setTimeout(() => {
+            const temp = chatArea.querySelector('.typing-temp');
+            if (temp) temp.remove();
+
+            appendMessage('bot', node.text);
+            renderOptions(node.options);
+          }, 750);
+        }
+      }
+
+      function renderOptions(options) {
+        optionsTitle.textContent = 'Vyberte možnost:';
+        optionsArea.innerHTML = '';
+        
+        options.forEach(opt => {
+          const btn = document.createElement('button');
+          btn.className = 'assistant-opt-btn';
+          btn.innerHTML = `${opt.label} <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>`;
+          btn.addEventListener('click', () => {
+            // Append user message choice
+            appendMessage('user', opt.label);
+            goToState(opt.next);
+          });
+          optionsArea.appendChild(btn);
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
