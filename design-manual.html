@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Designový manuál — Dent&Life</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --background: #ffffff;
+      --foreground: #171717;
+      --card: #f8f7f5;
+      --card-foreground: #171717;
+      --muted: #f2f1ee;
+      --muted-foreground: #737373;
+      --border: #e8e6e2;
+      --accent: #ca4848;
+      --accent-hover: #cc3333;
+      --accent-muted: #ca484813;
+      
+      --radius-sm: 0.5rem;
+      --radius-md: 1rem;
+      --radius-lg: 1.5rem;
+      --radius-pill: 9999px;
+
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.02);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+      --shadow-lg: 0 12px 32px rgba(0,0,0,0.08), 0 4px 8px rgba(0,0,0,0.04);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background-color: var(--background);
+      color: var(--foreground);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .grain-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      pointer-events: none;
+      opacity: 0.02;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      height: 70px;
+      display: flex;
+      align-items: center;
+    }
+
+    .header-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--foreground);
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .logo-link img {
+      height: 38px;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+      }
+    }
+
+    .nav-menu a {
+      color: var(--muted-foreground);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-menu a:hover {
+      color: var(--accent);
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      border: 1px solid var(--accent);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-pill);
+      transition: all 0.2s;
+    }
+
+    .back-btn:hover {
+      background: var(--accent);
+      color: white;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 120px auto 100px;
+      padding: 0 1.5rem;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      border: 1px solid rgba(202, 72, 72, 0.25);
+      background: rgba(202, 72, 72, 0.04);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-pill);
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .hero h1 {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      line-height: 1.1;
+      font-weight: 400;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 strong {
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .hero p {
+      font-size: 1.125rem;
+      color: var(--muted-foreground);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    section {
+      margin-bottom: 6rem;
+      scroll-margin-top: 100px;
+    }
+
+    .section-header {
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    .section-header h2 {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .section-header p {
+      color: var(--muted-foreground);
+      font-size: 0.9375rem;
+    }
+
+    .grid-logos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .logo-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 340px;
+      transition: all 0.3s;
+    }
+
+    .logo-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+    }
+
+    .logo-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 1.5rem;
+      border-radius: var(--radius-sm);
+      margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+      border: 1px solid var(--border);
+      cursor: zoom-in;
+      overflow: hidden;
+    }
+
+    .logo-container.light-mode {
+      background: #ffffff;
+      border-color: var(--border);
+    }
+
+    .logo-container.dark-mode {
+      background: #171717;
+      border-color: #2e2e2e;
+    }
+
+    .logo-container img {
+      max-width: 100%;
+      max-height: 140px;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-container:hover img {
+      transform: scale(1.05);
+    }
+
+    .logo-card.light-mode .dark-only,
+    .logo-card.dark-mode .light-only {
+      display: none !important;
+    }
+
+    .logo-card h3 {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .logo-meta {
+      font-size: 0.8125rem;
+      color: var(--muted-foreground);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .logo-actions {
+      display: flex;
+      gap: 0.75rem;
+      width: 100%;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 0.625rem;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      text-decoration: none;
+      text-align: center;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      cursor: pointer;
+    }
+
+    .action-btn.primary {
+      background: var(--foreground);
+      color: var(--background);
+      border: 1px solid var(--foreground);
+    }
+
+    .action-btn.primary:hover {
+      background: #333;
+    }
+
+    .action-btn.outline {
+      background: transparent;
+      color: var(--foreground);
+      border: 1px solid var(--border);
+    }
+
+    .action-btn.outline:hover {
+      background: var(--muted);
+      border-color: var(--muted-foreground);
+    }
+
+    .logo-toggle-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .toggle-trigger {
+      padding: 0.5rem 1.25rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border);
+      background: var(--card);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .toggle-trigger.active {
+      background: var(--foreground);
+      color: var(--background);
+      border-color: var(--foreground);
+    }
+
+    .grid-colors {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .color-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s;
+    }
+
+    .color-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .color-swatch {
+      height: 140px;
+      width: 100%;
+      position: relative;
+    }
+
+    .color-info {
+      padding: 1.5rem;
+    }
+
+    .color-name {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .color-desc {
+      font-size: 0.8125rem;
+      color: var(--muted-foreground);
+      margin-bottom: 1rem;
+      min-height: 40px;
+    }
+
+    .color-value-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-top: 1px solid var(--border);
+      font-size: 0.8125rem;
+    }
+
+    .color-label {
+      color: var(--muted-foreground);
+      font-weight: 500;
+    }
+
+    .color-value {
+      font-family: monospace;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0.125rem 0.375rem;
+      border-radius: var(--radius-sm);
+      transition: background 0.2s;
+    }
+
+    .color-value:hover {
+      background: var(--muted);
+      color: var(--accent);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--foreground);
+      color: var(--background);
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.875rem;
+      font-weight: 500;
+      box-shadow: var(--shadow-lg);
+      z-index: 200;
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .grid-typography {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 3rem;
+    }
+
+    @media (max-width: 900px) {
+      .grid-typography {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    .font-info-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 2.5rem;
+    }
+
+    .font-specimen {
+      font-size: 4rem;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .font-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .font-desc {
+      color: var(--muted-foreground);
+      font-size: 0.9375rem;
+      margin-bottom: 2rem;
+    }
+
+    .font-weights {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .weight-row {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    .type-scale {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .scale-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .scale-tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted-foreground);
+      font-weight: 600;
+    }
+
+    .scale-preview {
+      border-left: 3px solid var(--accent);
+      padding-left: 1rem;
+    }
+
+    .scale-info {
+      font-size: 0.8125rem;
+      color: var(--muted-foreground);
+    }
+
+    .grid-print {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 4rem;
+    }
+
+    .print-sub-header {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid var(--accent);
+      padding-left: 0.75rem;
+    }
+
+    .business-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .card-preview-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: all 0.3s;
+    }
+
+    .card-preview-box:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .card-image-wrap {
+      width: 100%;
+      aspect-ratio: 591/1063;
+      background: #fff;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #eee;
+      cursor: zoom-in;
+    }
+
+    .card-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.5s;
+    }
+
+    .card-image-wrap:hover img {
+      transform: scale(1.03);
+    }
+
+    .card-name {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .card-meta {
+      font-size: 0.8125rem;
+      color: var(--muted-foreground);
+    }
+
+    .stickers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .sticker-preview-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .sticker-preview-box:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .sticker-image-wrap {
+      width: 100%;
+      aspect-ratio: 1/1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border-radius: var(--radius-sm);
+      margin-bottom: 1.5rem;
+      border: 1px solid #eee;
+      box-shadow: var(--shadow-sm);
+      padding: 1.5rem;
+      cursor: zoom-in;
+    }
+
+    .sticker-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.5s;
+    }
+
+    .sticker-image-wrap:hover img {
+      transform: scale(1.03);
+    }
+
+    .sticker-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .sticker-desc {
+      font-size: 0.8125rem;
+      color: var(--muted-foreground);
+    }
+
+    .download-table-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.875rem;
+      min-width: 600px;
+    }
+
+    th {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 700;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--foreground);
+    }
+
+    td {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted-foreground);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: rgba(0, 0, 0, 0.01);
+      color: var(--foreground);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .badge.vector {
+      background: #fff8e6;
+      color: #b25e00;
+      border: 1px solid #ffe8cc;
+    }
+
+    .badge.raster {
+      background: #e6f7ff;
+      color: #0050b3;
+      border: 1px solid #bae7ff;
+    }
+
+    .tbl-action-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .tbl-action-link:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+
+    /* Modal Viewer */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(23, 23, 23, 0.95);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      padding: 2rem;
+    }
+
+    .modal.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      max-width: 90%;
+      max-height: 85%;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+      border-radius: var(--radius-sm);
+    }
+
+    .modal.open .modal-content {
+      transform: scale(1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      transition: background 0.2s;
+    }
+
+    .modal-close:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .modal-caption {
+      position: absolute;
+      bottom: 2rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1rem;
+      font-weight: 500;
+      text-align: center;
+      font-family: 'Bricolage Grotesque', sans-serif;
+    }
+
+    footer {
+      background: var(--foreground);
+      color: var(--background);
+      padding: 4rem 0 3rem;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-logos {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .footer-logos img {
+      height: 48px;
+    }
+
+    .footer-tagline {
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+  </style>
+</head>
+<body>
+  <div class="grain-overlay"></div>
+
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo-link">
+        <img src="files/res/logo-dent-dark.png" alt="Dent&Life Logo">
+        <span>Design</span>
+      </a>
+      <ul class="nav-menu">
+        <li><a href="#loga">Loga</a></li>
+        <li><a href="#barvy">Barvy</a></li>
+        <li><a href="#typografie">Typografie</a></li>
+        <li><a href="#tiskoviny">Tiskoviny</a></li>
+        <li><a href="#stazeni">Ke stažení</a></li>
+      </ul>
+      <a href="index.html" class="back-btn">&#8592; Zpět na web</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="hero">
+      <span class="hero-badge">Brand Guidelines</span>
+      <h1>Designový manuál <strong>Dent&Life</strong></h1>
+      <p>Specifikace vizuálního stylu a přehled oficiálních materiálů s prefixem Dent&Life.</p>
+    </div>
+
+    <!-- LOGA SECTION -->
+    <section id="loga">
+      <div class="section-header">
+        <h2>Varianty loga</h2>
+        <p>Sdružené podle layoutu a poměru stran s možností přepínání tmavého a světlého pozadí.</p>
+      </div>
+
+      <div class="logo-toggle-bar">
+        <button class="toggle-trigger active" onclick="setLogoTheme('light')">Světlé pozadí (Tmavé logo)</button>
+        <button class="toggle-trigger" onclick="setLogoTheme('dark')">Tmavé pozadí (Světlé logo)</button>
+      </div>
+
+      <div class="grid-logos">
+        <!-- Horizontal Logo (01 vs 04) -->
+        <div class="logo-card light-mode js-logo-card">
+          <div class="logo-container light-mode js-logo-container">
+            <img src="files/res/design-manual/Dent&Life-Logos-01.png" class="light-only" alt="Horizontální logo (tmavé)" onclick="viewImage(this.src, 'Horizontální logo (tmavé)')">
+            <img src="files/res/design-manual/Dent&Life-Logos-04.png" class="dark-only" alt="Horizontální logo (světlé)" onclick="viewImage(this.src, 'Horizontální logo (světlé)')">
+          </div>
+          <h3>Horizontální logo</h3>
+          <p class="logo-meta">Formát na šířku (Rozlišení 2559x1182 px)</p>
+          <div class="logo-actions">
+            <a href="files/res/design-manual/Dent&Life-Logos-01.png" class="action-btn primary light-only" download>Stáhnout PNG</a>
+            <a href="files/res/design-manual/Dent&Life-Logos-04.png" class="action-btn primary dark-only" download>Stáhnout PNG</a>
+          </div>
+        </div>
+
+        <!-- Square/Icon Logo (03 vs 02) -->
+        <div class="logo-card light-mode js-logo-card">
+          <div class="logo-container light-mode js-logo-container">
+            <img src="files/res/design-manual/Dent&Life-Logos-03.png" class="light-only" alt="Kruhový znak (tmavý)" onclick="viewImage(this.src, 'Kruhový znak (tmavý)')">
+            <img src="files/res/design-manual/Dent&Life-Logos-02.png" class="dark-only" alt="Kruhový znak (světlý)" onclick="viewImage(this.src, 'Kruhový znak (světlý)')">
+          </div>
+          <h3>Kruhový znak (Ikona)</h3>
+          <p class="logo-meta">Čtvercový formát / Ikona (Rozlišení 1182x1182 px)</p>
+          <div class="logo-actions">
+            <a href="files/res/design-manual/Dent&Life-Logos-03.png" class="action-btn primary light-only" download>Stáhnout PNG</a>
+            <a href="files/res/design-manual/Dent&Life-Logos-02.png" class="action-btn primary dark-only" download>Stáhnout PNG</a>
+          </div>
+        </div>
+
+        <!-- Stacked/Vertical Logo (06 vs 05) -->
+        <div class="logo-card light-mode js-logo-card">
+          <div class="logo-container light-mode js-logo-container">
+            <img src="files/res/design-manual/Dent&Life-Logos-06.png" class="light-only" alt="Vertikální Stacked logo (tmavé)" onclick="viewImage(this.src, 'Vertikální Stacked logo (tmavé)')">
+            <img src="files/res/design-manual/Dent&Life-Logos-05.png" class="dark-only" alt="Vertikální Stacked logo (světlé)" onclick="viewImage(this.src, 'Vertikální Stacked logo (světlé)')">
+          </div>
+          <h3>Vertikální (Stacked) logo</h3>
+          <p class="logo-meta">Svislý formát / Stacked (Rozlišení 2559x2559 px)</p>
+          <div class="logo-actions">
+            <a href="files/res/design-manual/Dent&Life-Logos-06.png" class="action-btn primary light-only" download>Stáhnout PNG</a>
+            <a href="files/res/design-manual/Dent&Life-Logos-05.png" class="action-btn primary dark-only" download>Stáhnout PNG</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BARVY SECTION -->
+    <section id="barvy">
+      <div class="section-header">
+        <h2>Barevná paleta</h2>
+        <p>Kliknutím na kód jej zkopírujete do schránky.</p>
+      </div>
+
+      <div class="grid-colors">
+        <div class="color-card">
+          <div class="color-swatch" style="background: #ca4848;"></div>
+          <div class="color-info">
+            <h3 class="color-name">Accent Red</h3>
+            <p class="color-desc">Primární kontrastní barva pro tlačítka, akcenty a zvýraznění.</p>
+            <div class="color-value-row">
+              <span class="color-label">HEX</span>
+              <span class="color-value" onclick="copyColor('#ca4848')">#ca4848</span>
+            </div>
+            <div class="color-value-row">
+              <span class="color-label">RGB</span>
+              <span class="color-value" onclick="copyColor('rgb(202, 72, 72)')">202, 72, 72</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-card">
+          <div class="color-swatch" style="background: #171717;"></div>
+          <div class="color-info">
+            <h3 class="color-name">Charcoal Black</h3>
+            <p class="color-desc">Primární tmavá barva pro texty, navigaci a elegantní pozadí.</p>
+            <div class="color-value-row">
+              <span class="color-label">HEX</span>
+              <span class="color-value" onclick="copyColor('#171717')">#171717</span>
+            </div>
+            <div class="color-value-row">
+              <span class="color-label">RGB</span>
+              <span class="color-value" onclick="copyColor('rgb(23, 23, 23)')">23, 23, 23</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-card">
+          <div class="color-swatch" style="background: #f8f7f5; border-bottom: 1px solid var(--border);"></div>
+          <div class="color-info">
+            <h3 class="color-name">Soft Beige</h3>
+            <p class="color-desc">Teplý světlý tón pro podkladové karty a vizuální odlišení sekcí.</p>
+            <div class="color-value-row">
+              <span class="color-label">HEX</span>
+              <span class="color-value" onclick="copyColor('#f8f7f5')">#f8f7f5</span>
+            </div>
+            <div class="color-value-row">
+              <span class="color-label">RGB</span>
+              <span class="color-value" onclick="copyColor('rgb(248, 247, 245)')">248, 247, 245</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-card">
+          <div class="color-swatch" style="background: #ffffff; border-bottom: 1px solid var(--border);"></div>
+          <div class="color-info">
+            <h3 class="color-name">Pure White</h3>
+            <p class="color-desc">Výchozí barva pozadí a čistého laboratorního prostoru.</p>
+            <div class="color-value-row">
+              <span class="color-label">HEX</span>
+              <span class="color-value" onclick="copyColor('#ffffff')">#ffffff</span>
+            </div>
+            <div class="color-value-row">
+              <span class="color-label">RGB</span>
+              <span class="color-value" onclick="copyColor('rgb(255, 255, 255)')">255, 255, 255</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-card">
+          <div class="color-swatch" style="background: #737373;"></div>
+          <div class="color-info">
+            <h3 class="color-name">Slate Grey</h3>
+            <p class="color-desc">Písmo druhé úrovně, doprovodné texty a popisky.</p>
+            <div class="color-value-row">
+              <span class="color-label">HEX</span>
+              <span class="color-value" onclick="copyColor('#737373')">#737373</span>
+            </div>
+            <div class="color-value-row">
+              <span class="color-label">RGB</span>
+              <span class="color-value" onclick="copyColor('rgb(115, 115, 115)')">115, 115, 115</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TYPOGRAFIE SECTION -->
+    <section id="typografie">
+      <div class="section-header">
+        <h2>Typografie</h2>
+        <p>Rozložení písem na webu</p>
+      </div>
+
+      <div class="grid-typography">
+        <div class="font-info-card">
+          <div class="font-specimen" style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700;">Aa</div>
+          <h3 class="font-title">Bricolage Grotesque</h3>
+          <p class="font-desc">Používá se výhradně pro nadpisy (H1, H2, H3), dodává značce moderní a lidský charakter.</p>
+          <div class="font-weights">
+            <div class="weight-row" style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 300;"><span>Light</span><span>300</span></div>
+            <div class="weight-row" style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 400;"><span>Regular</span><span>400</span></div>
+            <div class="weight-row" style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 500;"><span>Medium</span><span>500</span></div>
+            <div class="weight-row" style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600;"><span>Semi-Bold</span><span>600</span></div>
+            <div class="weight-row" style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700;"><span>Bold</span><span>700</span></div>
+          </div>
+        </div>
+
+        <div class="font-info-card">
+          <div class="font-specimen" style="font-family: 'Poppins', sans-serif; font-weight: 400;">Aa</div>
+          <h3 class="font-title">Poppins</h3>
+          <p class="font-desc">Určeno pro běžné odstavcové texty, položky nabídek a technické popisy.</p>
+          <div class="font-weights">
+            <div class="weight-row" style="font-family: 'Poppins', sans-serif; font-weight: 300;"><span>Light</span><span>300</span></div>
+            <div class="weight-row" style="font-family: 'Poppins', sans-serif; font-weight: 400;"><span>Regular</span><span>400</span></div>
+            <div class="weight-row" style="font-family: 'Poppins', sans-serif; font-weight: 500;"><span>Medium</span><span>500</span></div>
+            <div class="weight-row" style="font-family: 'Poppins', sans-serif; font-weight: 600;"><span>Semi-Bold</span><span>600</span></div>
+            <div class="weight-row" style="font-family: 'Poppins', sans-serif; font-weight: 700;"><span>Bold</span><span>700</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 4rem;">
+        <h3 class="print-sub-header">Měřítko písma (Typographic Scale)</h3>
+        <div class="type-scale">
+          <div class="scale-row">
+            <span class="scale-tag">Nadpis 1 (Hero Title)</span>
+            <div class="scale-preview" style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 3rem; font-weight: 700; line-height: 1.1;">Dentální laboratoř Dent&Life</div>
+            <span class="scale-info">font-family: Bricolage Grotesque; font-size: 3rem (48px); font-weight: 700;</span>
+          </div>
+
+          <div class="scale-row">
+            <span class="scale-tag">Nadpis 2 (Section Title)</span>
+            <div class="scale-preview" style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 2rem; font-weight: 700; line-height: 1.2;">Naše služby a technologie</div>
+            <span class="scale-info">font-family: Bricolage Grotesque; font-size: 2rem (32px); font-weight: 700;</span>
+          </div>
+
+          <div class="scale-row">
+            <span class="scale-tag">Nadpis 3 (Card Title)</span>
+            <div class="scale-preview" style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.35rem; font-weight: 600; line-height: 1.3;">Fixní protetika / korunky</div>
+            <span class="scale-info">font-family: Bricolage Grotesque; font-size: 1.35rem (21.6px); font-weight: 600;</span>
+          </div>
+
+          <div class="scale-row">
+            <span class="scale-tag">Odstavcový text (Body Text)</span>
+            <div class="scale-preview" style="font-family: 'Poppins', sans-serif; font-size: 1rem; color: var(--muted-foreground); max-width: 600px;">Zpracováváme široké spektrum fixních zubních náhrad z prémiových certifikovaných materiálů. Klademe důraz na detail a anatomickou přesnost každé práce.</div>
+            <span class="scale-info">font-family: Poppins; font-size: 1rem (16px); font-weight: 400; color: #737373;</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TISKOVINY SECTION -->
+    <section id="tiskoviny">
+      <div class="section-header">
+        <h2>Tiskové materiály & Výstupy</h2>
+        <p>Kliknutím na náhled jej zvětšíte</p>
+      </div>
+
+      <!-- BUSINESS CARDS -->
+      <div>
+        <h3 class="print-sub-header">Vizitka (Business Card)</h3>
+        <div class="business-cards-grid">
+          <div class="card-preview-box">
+            <div class="card-image-wrap" onclick="viewImage('files/res/design-manual/Dent&Life-Business_card-01.png', 'Vzorník vizitky 01')">
+              <img src="files/res/design-manual/Dent&Life-Business_card-01.png" alt="Vizitka 01">
+            </div>
+            <h4 class="card-name">Vizitka přední strana — Varianta A</h4>
+            <span class="card-meta">Rozměr: 50x90 mm (na výšku)</span>
+          </div>
+
+          <div class="card-preview-box">
+            <div class="card-image-wrap" onclick="viewImage('files/res/design-manual/Dent&Life-Business_card-02.png', 'Vzorník vizitky 02')">
+              <img src="files/res/design-manual/Dent&Life-Business_card-02.png" alt="Vizitka 02">
+            </div>
+            <h4 class="card-name">Vizitka přední strana — Varianta B</h4>
+            <span class="card-meta">Rozměr: 50x90 mm (na výšku)</span>
+          </div>
+
+          <div class="card-preview-box">
+            <div class="card-image-wrap" onclick="viewImage('files/res/design-manual/Dent&Life-Business_card-03.png', 'Vzorník vizitky 03')">
+              <img src="files/res/design-manual/Dent&Life-Business_card-03.png" alt="Vizitka 03">
+            </div>
+            <h4 class="card-name">Vizitka přední strana — Varianta C</h4>
+            <span class="card-meta">Rozměr: 50x90 mm (na výšku)</span>
+          </div>
+
+          <div class="card-preview-box">
+            <div class="card-image-wrap" onclick="viewImage('files/res/design-manual/Dent&Life-Business_card-04.png', 'Vzorník vizitky 04')">
+              <img src="files/res/design-manual/Dent&Life-Business_card-04.png" alt="Vizitka 04">
+            </div>
+            <h4 class="card-name">Vizitka přední strana — Varianta D</h4>
+            <span class="card-meta">Rozměr: 50x90 mm (na výšku)</span>
+          </div>
+
+          <div class="card-preview-box">
+            <div class="card-image-wrap" onclick="viewImage('files/res/design-manual/Dent&Life-Business_card-back.png', 'Vzorník vizitky zadní strana')">
+              <img src="files/res/design-manual/Dent&Life-Business_card-back.png" alt="Vizitka Zadní strana">
+            </div>
+            <h4 class="card-name">Vizitka zadní strana</h4>
+            <span class="card-meta">Rozměr: 50x90 mm (společná zadní strana)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STICKERS / SAMOLEPKY -->
+      <div style="margin-top: 4rem;">
+        <h3 class="print-sub-header">Samolepky (Stickers)</h3>
+        <div class="stickers-grid">
+          <div class="sticker-preview-box">
+            <div class="sticker-image-wrap" onclick="viewImage('files/res/design-manual/Dent&Life-Stickers_Kruhová.png', 'Kruhová samolepka')">
+              <img src="files/res/design-manual/Dent&Life-Stickers_Kruhová.png" alt="Kruhová samolepka">
+            </div>
+            <h4 class="sticker-title">Kruhová samolepka - Logo</h4>
+            <span class="sticker-desc">Hlavní brandová nálepka (1300x1300 px)</span>
+          </div>
+
+          <div class="sticker-preview-box">
+            <div class="sticker-image-wrap" onclick="viewImage('files/res/design-manual/Dent&Life-Stickers_Kruhová malá - icon.png', 'Mnohočetná malá kruhová samolepka')">
+              <img src="files/res/design-manual/Dent&Life-Stickers_Kruhová malá - icon.png" alt="Samolepka kruhová s ikonou">
+            </div>
+            <h4 class="sticker-title">Kruhová samolepka - Ikona</h4>
+            <span class="sticker-desc">Značení a pečetění zásilek (709x709 px)</span>
+          </div>
+
+          <div class="sticker-preview-box">
+            <div class="sticker-image-wrap" style="aspect-ratio: 1654/827;" onclick="viewImage('files/res/design-manual/Dent&Life-Stickers_Obdélníková.png', 'Obdélníková samolepka')">
+              <img src="files/res/design-manual/Dent&Life-Stickers_Obdélníková.png" alt="Obdélníková samolepka">
+            </div>
+            <h4 class="sticker-title">Obdélníková samolepka</h4>
+            <span class="sticker-desc">Ideální pro pečetění balíčků (1654x827 px)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KE STAŽENÍ / DOWLOAD TABLE -->
+    <section id="stazeni">
+      <div class="section-header">
+        <h2>Zdrojové soubory ke stažení</h2>
+        <p>Všechny originální podklady a vektory z Illustratoru</p>
+      </div>
+
+      <div class="download-table-card">
+        <table>
+          <thead>
+            <tr>
+              <th>Název souboru / Položka</th>
+              <th>Typ</th>
+              <th>Formát</th>
+              <th>Použití</th>
+              <th>Akce</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Dent&Life-Logos.ai</td>
+              <td><span class="badge vector">Vektor</span></td>
+              <td>Adobe Illustrator (.ai)</td>
+              <td>Kompletní sada logotypů a značek</td>
+              <td><a href="files/res/design-manual/Dent&Life-Logos.ai" class="tbl-action-link" download>Stáhnout originál</a></td>
+            </tr>
+            <tr>
+              <td>Dent&Life-Business_card.ai</td>
+              <td><span class="badge vector">Vektor</span></td>
+              <td>Adobe Illustrator (.ai)</td>
+              <td>Tiskové podklady a spadavka pro vizitky</td>
+              <td><a href="files/res/design-manual/Dent&Life-Business_card.ai" class="tbl-action-link" download>Stáhnout originál</a></td>
+            </tr>
+            <tr>
+              <td>Dent&Life-Stickers.ai</td>
+              <td><span class="badge vector">Vektor</span></td>
+              <td>Adobe Illustrator (.ai)</td>
+              <td>Tiskové podklady pro kruhové a obdélníkové nálepky</td>
+              <td><a href="files/res/design-manual/Dent&Life-Stickers.ai" class="tbl-action-link" download>Stáhnout originál</a></td>
+            </tr>
+            <tr>
+              <td>Dent&Life-Logos-01.png až 06.png</td>
+              <td><span class="badge raster">Rastr</span></td>
+              <td>PNG rozbalené (balík v .ai)</td>
+              <td>Jednotlivé varianty a formáty na web či prezentace</td>
+              <td>— (stáhnout v sekci Loga výše)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logos">
+        <img src="files/res/logo-dent-light.png" alt="Dent&Life Logo">
+      </div>
+      <p class="footer-tagline">&copy; 2026 Dent&Life Zubní laboratoř s.r.o. Všechna práva vyhrazena.</p>
+    </div>
+  </footer>
+
+  <!-- Modal and Toast HTML elements -->
+  <div id="imageModal" class="modal" onclick="closeModal()">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <img class="modal-content" id="imgModalTarget" alt="Zvětšený náhled">
+    <div class="modal-caption" id="modalCaptionTarget"></div>
+  </div>
+
+  <div id="copyToast" class="toast">Kód byl zkopírován do schránky!</div>
+
+  <script>
+    function setLogoTheme(theme) {
+      const cards = document.querySelectorAll('.js-logo-card');
+      const containers = document.querySelectorAll('.js-logo-container');
+      const buttons = document.querySelectorAll('.toggle-trigger');
+      
+      buttons.forEach(btn => btn.classList.remove('active'));
+      const activeBtn = Array.from(buttons).find(btn => btn.innerText.toLowerCase().includes(theme === 'light' ? 'světlé' : 'tmavé'));
+      if (activeBtn) activeBtn.classList.add('active');
+
+      cards.forEach(card => {
+        if (theme === 'light') {
+          card.classList.remove('dark-mode');
+          card.classList.add('light-mode');
+        } else {
+          card.classList.remove('light-mode');
+          card.classList.add('dark-mode');
+        }
+      });
+
+      containers.forEach(container => {
+        if (theme === 'light') {
+          container.classList.remove('dark-mode');
+          container.classList.add('light-mode');
+        } else {
+          container.classList.remove('light-mode');
+          container.classList.add('dark-mode');
+        }
+      });
+    }
+
+    function copyColor(value) {
+      navigator.clipboard.writeText(value).then(() => {
+        const toast = document.getElementById('copyToast');
+        toast.innerText = 'Zkopírováno: ' + value;
+        toast.classList.add('show');
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 2000);
+      }).catch(err => {
+        console.error('Došlo k chybě při kopírování barevného kódu', err);
+      });
+    }
+
+    function viewImage(src, caption) {
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('imgModalTarget');
+      const captionText = document.getElementById('modalCaptionTarget');
+      
+      modal.classList.add('open');
+      modalImg.src = src;
+      captionText.innerText = caption;
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('open');
+    }
+
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>
